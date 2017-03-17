@@ -1,0 +1,54 @@
+<resources>
+
+    <!-- Strings used as application labels depending on the current location in the app -->
+    <string name="popular_movies_label">Popular Movies</string>
+    <string name="top_rated_movies_label">Top Rated Movies</string>
+    <string name="movie_details_label">Movie Details</string>
+
+    <!-- Strings used in XML layout files -->
+    <string name="network_error_message">Network Error</string>
+    <string name="movie_poster_description">Movie Poster</string>
+    <string name="title">(%s)</string>
+    <string name="details_release_date"><b>Release date: \s</b></string>
+    <string name="details_rating"><b>User Rating: \s</b></string>
+    <string name="details_plot"><b>Plot Synopsis: \n\n</b></string>
+
+    <!-- Strings used in the menu bar as titles for items -->
+    <string name="sort_most_popular">Sort By Most Popular</string>
+    <string name="sort_top_rated">Sort By Top Rated</string>
+
+    <!-- Strings used as parameters to load images into views using Picasso -->
+    <string name="movie_poster_base_url_w780">http://image.tmdb.org/t/p/w780/</string>
+    <string name="movie_poster_base_url_w185">http://image.tmdb.org/t/p/w185/</string>
+
+    <!-- Strings used in Network utility as parameters for the URI builder -->
+    <string name="movies_base_url">https://api.themoviedb.org/3/movie/</string>
+    <string name="popular">popular</string>
+    <string name="top_rated">top_rated</string>
+    <string name="api_key_param">api_key</string>
+    <!-- TODO insert your API key here -->
+    <string name="api_key"></string>
+
+    <!-- String used for language comparison in MovieDetailsActivity -->
+    <string name="language_en">en</string>
+
+    <!-- Strings used in JSON utility class as parameters for methods called by JSON Objects-->
+    <string name="results_json">results</string>
+    <string name="id_json">id</string>
+    <string name="poster_path_json">poster_path</string>
+    <string name="title_json">title</string>
+    <string name="original_title_json">original_title</string>
+    <string name="plot_json">overview</string>
+    <string name="rating_json">vote_average</string>
+    <string name="release_date_json">release_date</string>
+    <string name="original_language_json">original_language</string>
+    <string name="message_code_json">cod</string>
+
+    <!-- String delimiter used for a scanner located in the Network utility class -->
+    <string name="delimiter">\\A</string>
+
+    <!-- Strings used for parsing and formatting dates in MovieDetailsActivity -->
+    <string name="output_date_format">d MMM yyyy</string>
+    <string name="input_date_format">yyyy-MM-dd</string>
+
+</resources>
