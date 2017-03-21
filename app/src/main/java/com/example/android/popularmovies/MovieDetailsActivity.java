@@ -1,15 +1,17 @@
 package com.example.android.popularmovies;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.net.Uri;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -23,7 +25,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 
 /**
  * Activity class that handles the movie details screen invoked when the user clicks on a movie thumbnail
@@ -31,11 +32,12 @@ import java.util.Arrays;
  */
 public class MovieDetailsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<String[]>{
 
-    private TextView originalTitle, title, plot, rating, releaseDate, reviews, errorMessage;
+    private TextView originalTitle, title, plot, rating, releaseDate, errorMessage;
     private ImageView poster;
     private ProgressBar progressBar;
     private String idExtra = "";
     private ScrollView scrollView;
+    private LinearLayout linearLayout;
     private static final int ID_MOVIES_LOADER = 21;
     private static final String SEARCH_QUERY_URL_EXTRA = "query";
 
@@ -49,10 +51,10 @@ public class MovieDetailsActivity extends AppCompatActivity implements LoaderMan
         setContentView(R.layout.activity_movie_details);
 
         scrollView = (ScrollView) findViewById(R.id.sv_details);
+        linearLayout = (LinearLayout) findViewById(R.id.lv_details);
         originalTitle = (TextView) findViewById(R.id.tv_details_original_title);
         title = (TextView) findViewById(R.id.tv_details_title);
         plot = (TextView) findViewById(R.id.tv_details_plot);
-        reviews = (TextView) findViewById(R.id.tv_details_reviews);
         rating = (TextView) findViewById(R.id.tv_details_rating);
         releaseDate = (TextView) findViewById(R.id.tv_details_release_date);
         poster = (ImageView) findViewById(R.id.iv_details_poster);
@@ -136,7 +138,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements LoaderMan
                     String JsonVideosResponse = NetworkUtils.getResponseFromHttpUrl(videosRequestUrl);
                     String[] videos = JsonUtils.getSimpleMovieVideosFromJson(JsonVideosResponse);
 
-                    movieDetails = ArrayUtils.concatAll(details, videos, reviews);
+                    movieDetails = ArrayUtils.concatAll(details, reviews, videos);
 
                     return movieDetails;
                 }
@@ -154,7 +156,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements LoaderMan
     }
 
     @Override
-    public void onLoadFinished(Loader<String[]> loader, String[] movieDetails) {
+    public void onLoadFinished(Loader<String[]> loader, final String[] movieDetails) {
 
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -170,6 +172,43 @@ public class MovieDetailsActivity extends AppCompatActivity implements LoaderMan
 
             plot.append(movieDetails[3]);
             rating.append(movieDetails[4]);
+
+            for(int i = 8 + (Integer.parseInt(movieDetails[7]) * 2); i < movieDetails.length; i+=2){
+
+                Button button = new Button(this);
+                button.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT));
+                button.setPadding(0, 10, 0, 0);
+                button.setText(movieDetails[i]);
+                button.setTextSize(20);
+                button.setInputType(InputType.TYPE_TEXT_FLAG_CAP_WORDS);
+                final Uri videoUri = NetworkUtils.buildYoutubeUri(movieDetails[i+1]);
+
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(Intent.ACTION_VIEW, videoUri);
+                        startActivity(intent);
+                    }
+                });
+
+                linearLayout.addView(button);
+            }
+
+            for(int i = 8; i < 7 + (Integer.parseInt(movieDetails[7]) * 2); i+=2) {
+
+                TextView textView = new TextView(this);
+                textView.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.MATCH_PARENT));
+                textView.setPadding(0, 10, 0, 0);
+                textView.setTextSize(16);
+                linearLayout.addView(textView);
+                textView.append(movieDetails[i]+"\n\n");
+                textView.append(movieDetails[i+1]+"\n");
+            }
 
             try {
                 releaseDate.append(new SimpleDateFormat(getString(R.string.output_date_format)).format(new SimpleDateFormat(getString(R.string.input_date_format)).parse(movieDetails[5])));

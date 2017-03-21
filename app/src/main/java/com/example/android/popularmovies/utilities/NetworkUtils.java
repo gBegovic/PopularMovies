@@ -1,6 +1,7 @@
 package com.example.android.popularmovies.utilities;
 
 import android.net.Uri;
+
 import com.example.android.popularmovies.MainActivity;
 import com.example.android.popularmovies.R;
 import java.io.IOException;
@@ -21,8 +22,8 @@ public class NetworkUtils {
     private static final String YOUTUBE_VIDEO_PARAM = "v";
     private static final String POPULAR = MainActivity.getMainContext().getString(R.string.popular);
     private static final String TOP_RATED = MainActivity.getMainContext().getString(R.string.top_rated);
-    private static final String VIDEOS = "videos";
-    private static final String REVIEWS = "reviews";
+    private static final String VIDEOS = "/videos";
+    private static final String REVIEWS = "/reviews";
     private static final String API_KEY_PARAM = MainActivity.getMainContext().getString(R.string.api_key_param);
     private static final String API_KEY = MainActivity.getMainContext().getString(R.string.api_key);
 
@@ -107,20 +108,20 @@ public class NetworkUtils {
         return url;
     }
 
-    public static URL buildYoutubeUrl(String urlParam) {
+    public static Uri buildYoutubeUri(String urlParam) {
 
         Uri builtUri = Uri.parse(YOUTUBE_BASE_URL).buildUpon()
                 .appendQueryParameter(YOUTUBE_VIDEO_PARAM, urlParam)
                 .build();
 
-        URL url = null;
-        try {
-            url = new URL(builtUri.toString());
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+//        URL url = null;
+//        try {
+//            url = new URL(builtUri.toString());
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
 
-        return url;
+        return builtUri;
     }
 
     /**

@@ -15,6 +15,7 @@ public class ArrayUtils {
             System.arraycopy(array, 0, result, offset, array.length);
             offset += array.length;
         }
+
         return result;
     }
 }
