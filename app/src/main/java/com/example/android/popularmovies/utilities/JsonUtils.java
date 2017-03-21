@@ -14,6 +14,10 @@ import java.net.HttpURLConnection;
 public class JsonUtils {
 
     private final static String RESULTS = MainActivity.getMainContext().getString(R.string.results_json);
+    private final static String TRAILER_NAME = "name";
+    private final static String TRAILER_KEY = "key";
+    private final static String REVIEW_AUTHOR = "author";
+    private final static String REVIEW_CONTENT = "content";
     private final static String ID = MainActivity.getMainContext().getString(R.string.id_json);
     private final static String MOVIE_POSTER = MainActivity.getMainContext().getString(R.string.poster_path_json);
     private final static String TITLE = MainActivity.getMainContext().getString(R.string.title_json);
@@ -102,7 +106,7 @@ public class JsonUtils {
 
         JSONObject reviews = new JSONObject(jsonString);
         JSONArray results = reviews.getJSONArray(RESULTS);
-        String[] parsedMovieReviews = new String[results.length()];
+        String[] parsedMovieReviews = new String[results.length()*2+1];
 
         if (reviews.has(MESSAGE_CODE)) {
             int errorCode = reviews.getInt(MESSAGE_CODE);
@@ -116,9 +120,16 @@ public class JsonUtils {
                     return null;
             }
         }
+        if (results.length() > 0) {
 
+            for (int i = 1; i < (results.length() * 2) + 1; i += 2) {
 
-
+                JSONObject review = results.getJSONObject(i/2);
+                parsedMovieReviews[i] = review.getString(REVIEW_AUTHOR);
+                parsedMovieReviews[i + 1] = review.getString(REVIEW_CONTENT);
+            }
+        }
+        parsedMovieReviews[0] = (parsedMovieReviews.length - 1)/2 + "";
         return parsedMovieReviews;
     }
 
@@ -126,7 +137,7 @@ public class JsonUtils {
 
         JSONObject videos = new JSONObject(jsonString);
         JSONArray results = videos.getJSONArray(RESULTS);
-        String[] parsedMovieVideos = new String[results.length()];
+        String[] parsedMovieVideos = new String[results.length()*2];
 
         if (videos.has(MESSAGE_CODE)) {
             int errorCode = videos.getInt(MESSAGE_CODE);
@@ -141,7 +152,15 @@ public class JsonUtils {
             }
         }
 
+        if(results.length() > 0) {
 
+            for (int i = 0; i < results.length()*2; i+=2) {
+
+                JSONObject video = results.getJSONObject(i/2);
+                parsedMovieVideos[i] = video.getString(TRAILER_NAME);
+                parsedMovieVideos[i+1] = video.getString(TRAILER_KEY);
+            }
+        }
 
         return parsedMovieVideos;
     }
