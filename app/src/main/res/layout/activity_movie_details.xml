@@ -32,13 +32,31 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/tv_details_original_title"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="26sp"
-                android:textStyle="bold"/>
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_details_original_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:layout_gravity="center"
+                    android:textSize="26sp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textStyle="bold"/>
+
+                <CheckBox
+                    android:id="@+id/favorite_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@android:drawable/btn_star"
+                    android:background="#00ffffff"
+                    android:layout_gravity="end"
+                    android:contentDescription="" />
+
+            </FrameLayout>
 
             <TextView
                 android:id="@+id/tv_details_title"
@@ -63,7 +81,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="@string/details_release_date"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp" />
 
@@ -71,15 +88,13 @@
                 android:id="@+id/tv_details_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@string/details_rating" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_details_plot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:text="@string/details_plot"
                 android:paddingTop="10dp"/>
 
         </LinearLayout>

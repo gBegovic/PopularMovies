@@ -10,8 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".MainActivity"
-            android:label="@string/popular_movies_label">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/popular_movies_label"
+            android:launchMode="singleTop">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +25,20 @@
 
         <activity
             android:name=".MovieDetailsActivity"
-            android:label="@string/movie_details_label"/>
+            android:label="@string/movie_details_label"
+            android:parentActivityName=".MainActivity"
+            android:alwaysRetainTaskState="true">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+
+        </activity>
+
+        <provider
+            android:name=".data.MoviesProvider"
+            android:authorities="@string/content_authority"
+            android:exported="false"/>
 
     </application>
 

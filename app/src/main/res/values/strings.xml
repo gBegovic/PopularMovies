@@ -9,9 +9,9 @@
     <string name="network_error_message">Network Error</string>
     <string name="movie_poster_description">Movie Poster</string>
     <string name="title">(%s)</string>
-    <string name="details_release_date"><b>Release date: \s</b></string>
-    <string name="details_rating"><b>User Rating: \s</b></string>
-    <string name="details_plot"><b>Plot Synopsis: \n\n</b></string>
+    <string name="details_release_date"><b>Release date:</b> %s</string>
+    <string name="details_rating"><b>User Rating:</b> %s</string>
+    <string name="details_plot"><b>Plot Synopsis:</b> \n\n%s</string>
 
     <!-- Strings used in the menu bar as titles for items -->
     <string name="sort_most_popular">Sort By Most Popular</string>
@@ -27,7 +27,7 @@
     <string name="top_rated">top_rated</string>
     <string name="api_key_param">api_key</string>
     <!-- TODO insert your API key here -->
-    <string name="api_key"></string>
+    <string name="api_key">2b199ed1fadb81df8ea5521475e2a880</string>
 
     <!-- String used for language comparison in MovieDetailsActivity -->
     <string name="language_en">en</string>
@@ -50,5 +50,9 @@
     <!-- Strings used for parsing and formatting dates in MovieDetailsActivity -->
     <string name="output_date_format">d MMM yyyy</string>
     <string name="input_date_format">yyyy-MM-dd</string>
+    <string name="sort_favorites">Show Favorites</string>
+    <string name="favorite_movies_label">Favorite Movies</string>
+    <string name="extra_query_type">queryType</string>
+    <string name="content_authority">com.example.android.popularmovies</string>
 
 </resources>
