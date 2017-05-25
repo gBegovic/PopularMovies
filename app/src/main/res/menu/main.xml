@@ -9,5 +9,9 @@
             android:title="@string/sort_top_rated"
             android:orderInCategory="2"
             android:id="@+id/action_top_rated" />
+        <item
+            android:title="@string/sort_favorites"
+            android:orderInCategory="3"
+            android:id="@+id/action_favorites" />
     </group>
 </menu>
